@@ -112,6 +112,7 @@ body {
   box-shadow: 0 -2px 0 rgba(0,0,0,0.08) inset;
 }
 
+.tab[data-tag="all"]         { background-color: var(--indigo); }
 .tab[data-tag="スーパーカブ"] { background-color: var(--tab-cub); }
 .tab[data-tag="自転車"]      { background-color: var(--tab-cycle); }
 .tab[data-tag="登山"]        { background-color: var(--tab-hike); }
