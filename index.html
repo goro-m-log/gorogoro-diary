@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>ごろごろ雑記帳</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="page-header">
+  <h1 class="site-title"><a href="index.html">ごろごろ雑記帳</a></h1>
+  <p class="site-subtitle">気の向くままの、暮らしと趣味の記録</p>
+
+  <nav class="tab-nav" aria-label="カテゴリで絞り込む">
+    <button class="tab is-active" data-tag="all">すべて</button>
+    <button class="tab" data-tag="スーパーカブ">スーパーカブ</button>
+    <button class="tab is-coming-soon" data-tag="自転車" disabled>自転車(準備中)</button>
+    <button class="tab is-coming-soon" data-tag="登山" disabled>登山(準備中)</button>
+    <button class="tab is-coming-soon" data-tag="暮らし" disabled>暮らし(準備中)</button>
+  </nav>
+</header>
+
+<main>
+  <div class="post-list" id="post-list">
+
+    <a class="post-card" href="posts/2026-08-27-hajimemashita.html" data-tag="スーパーカブ">
+      <div class="post-meta">
+        <span>2026.08.27</span>
+        <span class="post-tag" data-tag="スーパーカブ">スーパーカブ</span>
+      </div>
+      <h2 class="post-title">はじめました</h2>
+      <p class="post-excerpt">思いついたことをゆるく書き溜めていく雑記帳、はじめました。まずはスーパーカブの話から。</p>
+    </a>
+
+  </div>
+
+  <p class="empty-state" id="empty-state" hidden>このカテゴリの記事はまだありません。</p>
+</main>
+
+<footer>
+  &copy; 2026 ごろごろ雑記帳
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab:not(.is-coming-soon)');
+  const cards = document.querySelectorAll('.post-card');
+  const emptyState = document.getElementById('empty-state');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('is-active'));
+      tab.classList.add('is-active');
+
+      const selected = tab.dataset.tag;
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const match = selected === 'all' || card.dataset.tag === selected;
+        card.style.display = match ? 'block' : 'none';
+        if (match) visibleCount++;
+      });
+
+      emptyState.hidden = visibleCount !== 0;
+    });
+  });
+</script>
+
+</body>
+</html>
