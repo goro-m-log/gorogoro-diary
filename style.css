@@ -1,0 +1,251 @@
+/* ==========================================================
+   ごろごろ雑記帳 - スタイルシート
+   コンセプト: 手帳・ノートをめくる感じ。シンプルで直感的。
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Kosugi+Maru&display=swap');
+
+:root {
+  /* --- カラートークン --- */
+  --paper: #eef0e9;          /* 背景:少し緑がかった和紙色 */
+  --paper-raised: #f7f8f2;   /* カードなど、少し明るい紙 */
+  --ink: #262a26;            /* 本文の文字色(墨色) */
+  --ink-soft: #5c6158;       /* 補助テキスト */
+  --indigo: #2c3e5c;         /* メインアクセント(藍色) */
+  --indigo-deep: #1c2940;    /* ホバー時など濃い藍 */
+  --rust: #a8552f;           /* サブアクセント(サビ朱色) */
+  --line: #cfd0c2;           /* 罫線・区切り */
+  --tab-cub: #a8552f;        /* カテゴリタブ: スーパーカブ */
+  --tab-cycle: #3f6b4f;      /* カテゴリタブ: 自転車(準備中) */
+  --tab-hike: #4c6a3f;       /* カテゴリタブ: 登山(準備中) */
+  --tab-life: #8a6a2f;       /* カテゴリタブ: 暮らし(準備中) */
+
+  /* --- タイポグラフィ --- */
+  --font-display: 'Shippori Mincho', serif;
+  --font-body: 'Zen Kaku Gothic New', sans-serif;
+  --font-utility: 'Kosugi Maru', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light only;
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px);
+  background-size: 100% 2.1em;
+  background-position: 0 7.2em;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+.page-header {
+  background-color: var(--paper);
+  padding: 2.5rem 1.5rem 1.5rem;
+  text-align: center;
+  border-bottom: 2px solid var(--line);
+  position: relative;
+}
+
+.site-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: var(--indigo);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.site-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-subtitle {
+  font-family: var(--font-utility);
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  letter-spacing: 0.03em;
+}
+
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  padding: 0 0.5rem;
+}
+
+.tab {
+  font-family: var(--font-utility);
+  font-size: 0.85rem;
+  padding: 0.5rem 1.1rem 0.45rem;
+  border-radius: 8px 8px 0 0;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  opacity: 0.9;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  transform: translateY(4px);
+}
+
+.tab:hover,
+.tab:focus-visible {
+  transform: translateY(0);
+  opacity: 1;
+  outline: 2px solid var(--indigo-deep);
+  outline-offset: 2px;
+}
+
+.tab.is-active {
+  transform: translateY(0);
+  opacity: 1;
+  box-shadow: 0 -2px 0 rgba(0,0,0,0.08) inset;
+}
+
+.tab[data-tag="スーパーカブ"] { background-color: var(--tab-cub); }
+.tab[data-tag="自転車"]      { background-color: var(--tab-cycle); }
+.tab[data-tag="登山"]        { background-color: var(--tab-hike); }
+.tab[data-tag="暮らし"]      { background-color: var(--tab-life); }
+
+.tab.is-coming-soon {
+  opacity: 0.45;
+  cursor: default;
+}
+.tab.is-coming-soon:hover {
+  transform: translateY(4px);
+  opacity: 0.45;
+  outline: none;
+}
+
+main {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.post-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.post-card {
+  background-color: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1.4rem 1.6rem;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  position: relative;
+}
+
+.post-card:hover,
+.post-card:focus-visible {
+  box-shadow: 3px 3px 0 var(--line);
+  border-color: var(--indigo);
+  outline: none;
+}
+
+.post-meta {
+  font-family: var(--font-utility);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.post-tag {
+  font-family: var(--font-utility);
+  font-size: 0.72rem;
+  color: #fff;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+}
+.post-tag[data-tag="スーパーカブ"] { background-color: var(--tab-cub); }
+.post-tag[data-tag="自転車"]      { background-color: var(--tab-cycle); }
+.post-tag[data-tag="登山"]        { background-color: var(--tab-hike); }
+.post-tag[data-tag="暮らし"]      { background-color: var(--tab-life); }
+
+.post-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+  color: var(--indigo-deep);
+}
+
+.post-excerpt {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--ink-soft);
+  font-family: var(--font-utility);
+  padding: 3rem 1rem;
+}
+
+.post-body {
+  background-color: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 2rem 1.8rem;
+}
+
+.post-body h1 {
+  font-family: var(--font-display);
+  color: var(--indigo-deep);
+  font-size: 1.7rem;
+  margin-top: 0;
+}
+
+.post-body p {
+  margin: 1rem 0;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-utility);
+  font-size: 0.85rem;
+  color: var(--indigo);
+  text-decoration: none;
+}
+.back-link:hover,
+.back-link:focus-visible {
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  font-family: var(--font-utility);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  padding: 2rem 1rem 3rem;
+}
+
+@media (max-width: 480px) {
+  .page-header { padding: 2rem 1rem 1.2rem; }
+  main { padding: 1.8rem 1rem 3rem; }
+  .post-card { padding: 1.1rem 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .tab, .post-card { transition: none; }
+}
